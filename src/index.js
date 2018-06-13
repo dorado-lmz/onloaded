@@ -34,7 +34,11 @@ export default function (elem, opts) {
 	}
 
 	forEach(elem, el => {
-		el.onload = onload;
-		el.onerror = onerror;
+		if (el.complete) {
+			onload.apply(el);
+		} else {
+			el.onload = onload;
+			el.onerror = onerror;
+		}
 	});
 }

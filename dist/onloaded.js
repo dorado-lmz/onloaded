@@ -42,8 +42,12 @@ var index = function (elem, opts) {
 	}
 
 	forEach(elem, function (el) {
-		el.onload = onload;
-		el.onerror = onerror;
+		if (el.complete) {
+			onload.apply(el);
+		} else {
+			el.onload = onload;
+			el.onerror = onerror;
+		}
 	});
 };
 
